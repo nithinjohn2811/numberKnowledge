@@ -6,9 +6,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Number Knowledge</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style>
+    #fact{
+        display:none;
+    }
+    </style>
 </head>
-<body>
+<body class = "bg-dark">
+    <div class="container">
+      <div class="row">
+         <div class="col-md-6 mx-auto">
+          <div class ="card mt-5 p-3">
+            <h1>Number Knowledge</h1>
+            <p>Type in any number and get some knowledge about it</p>
+           <input type ="number" class = "form-control form-control-lg" id ="inputNumber" placeholder = "Enter your number......">
+           <div id ="fact" class = "card-body">
+               <h4 class = "card Title">
+                   Some interesting facts
+                </h4>
+                <p id = "factText" class ="class-text"></p>
+           </div>
+          </div> 
+          </div>
+        </div>
+    </div> 
     
+    <script>
+    let fact = document.querySelector('#fact');
+    let factText = document.querySelector('#factText');
+    let inputNumber = document.querySelector('#inputNumber');
+    inputNumber.addEventListener('input',getFactFetch)
+
+    function getFactFetch (){
+       let number = inputNumber.value;
+        fetch('http://numbersapi.com/'+ number)
+        .then(response =>response.text())
+        .then(data => {
+            if(number!= ''){
+                fact.style.display = 'block';
+                factText.innerText = data; 
+            }
+            console.log(data);
+        })
+        .catch(err =>console.log(err));
+    }
+    </script>
 </body>
 </html>
